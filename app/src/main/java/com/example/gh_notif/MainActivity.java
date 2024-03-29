@@ -15,8 +15,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button GetStarted;
-    Button skip;
+    Button GetStarted, skip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
