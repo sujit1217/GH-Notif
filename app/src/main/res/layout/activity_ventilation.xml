@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".temperature"
+    android:orientation="vertical"
+    android:padding="30dp"
+    >
+
+    <Switch
+        android:id="@+id/temperatureswitch"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_outline"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="Ventilation"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:thumbTint="@color/green"
+        android:trackTint="#00897B" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:src="@drawable/ventilation"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/button_outline"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/current"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:text="Current Air Flow" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/button_outline"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/target"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text="Target Air Flow" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:layout_margin="10dp"
+                app:boxStrokeColor="@color/green"
+                android:hint="Enter Air Flow Content"
+                android:textColor="@color/black"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/moisturecontent"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/selectdays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Select days"
+                    android:textStyle="italic|bold"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="200dp"
+                    android:layout_height="53dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:entries="@array/days_of_week"
+
+                    android:prompt="@string/select_days" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/selecttime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Time"
+                    android:textStyle="italic|bold"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <!-- NumberPicker for selecting hours -->
+                    <NumberPicker
+                        android:id="@+id/number_picker_hours"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/button_outline"
+                        android:max="23"
+                        android:min="00"
+                        />
+
+                    <!-- Text View for the colon (:) separator -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
+                        android:gravity="center"/>
+
+                    <!-- NumberPicker for selecting minutes -->
+                    <NumberPicker
+                        android:background="@drawable/button_outline"
+                        android:id="@+id/number_picker_minutes"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:max="59"
+                        android:min="0" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
