@@ -21,10 +21,19 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class loginpage extends AppCompatActivity {
 
+    TextInputEditText email, password;
+    Button login, signup;
+    FirebaseAuth authenticate;
+
+    DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReferenceFromUrl("https://gh-notif-d5754-default-rtdb.firebaseio.com/");
 
 
 
@@ -33,5 +42,67 @@ public class loginpage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_loginpage);
+
+        login=findViewById(R.id.loginbutton);
+        signup=findViewById(R.id.signupbutton);
+        email=findViewById(R.id.lemail);
+        password=findViewById(R.id.lpassword);
+
+
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String emailtxt= email.getText().toString();
+                final String passwordtxt= password.getText().toString();
+
+                if(emailtxt.isEmpty() || passwordtxt.isEmpty())
+                {
+                    Toast.makeText(loginpage.this, "please enter your email and pasword", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.hasChild(emailtxt)){
+                                final String getpassword = snapshot.child(emailtxt).child("password").getValue(String.class);
+
+                                if(getpassword.equals(passwordtxt))
+                                {
+                                    Toast.makeText(loginpage.this, "successfully logged in ", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(loginpage.this, dashboard.class));
+                                    finish();
+
+                                }else{
+                                    Toast.makeText(loginpage.this, "wrong password", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else {
+                                Toast.makeText(loginpage.this, "wrong password", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
+        /*login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(loginpage.this, forgotpassword.class));
+            }
+        });*/
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(loginpage.this, signup.class));
+            }
+        });
     }
 }

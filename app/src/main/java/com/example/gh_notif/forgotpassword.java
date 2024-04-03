@@ -20,11 +20,20 @@ import com.google.firebase.auth.FirebaseAuth;
 public class forgotpassword extends AppCompatActivity {
 
 
-
+    TextInputEditText email, password;
+    Button passwordchange;
+    TextView goback;
+    Button login, signup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpassword);
+
+        email=findViewById(R.id.forgotEmail);
+        password=findViewById(R.id.repassword);
+        passwordchange=findViewById(R.id.passwordchange);
+        
+
 
     }
 }
