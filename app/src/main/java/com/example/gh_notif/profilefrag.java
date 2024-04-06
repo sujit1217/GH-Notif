@@ -1,8 +1,10 @@
 package com.example.gh_notif;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,8 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -30,9 +38,7 @@ public class profilefrag extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    TextView profilename, profileemail, profileusername, profilepassword;
-    TextView titlename, titleusername;
-
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://gh-notif-d5754-default-rtdb.firebaseio.com/");
 
 
 
@@ -71,11 +77,45 @@ public class profilefrag extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_homefrag, container, false);
-        return view;
+        View view = inflater.inflate(R.layout.fragment_profilefrag, container, false);
+       TextView profilename=view.findViewById(R.id.profileName);
+        TextView profileusername=view.findViewById(R.id.profileUsername);
+        TextView profileemail=view.findViewById(R.id.profileEmail);
+        TextView profilepassword=view.findViewById(R.id.profilePassword);
+        Button editprofile= view.findViewById(R.id.editingprofile);
+
+        databaseReference.child("users").child("username").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String username = snapshot.getValue(String.class);
+                    // Use the retrieved data as needed
+                    profileusername.setText(username);
+                } else {
+                    // Handle the case where the data does not exist
+                    Toast.makeText(getActivity(), "user data does not exist", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error
+                Toast.makeText(getActivity(), "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        editprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), editprofile.class));
+            }
+        });
+
+
+return view;
     }
 
 

@@ -50,13 +50,13 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="12dp"
-            android:hint="Email"
+            android:hint="Username"
             android:textColor="@color/black"
             app:boxStrokeColor="@color/green"
             app:hintTextColor="@color/green">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/lemail"
+                android:id="@+id/lusername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"

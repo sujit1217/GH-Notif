@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "150583166313",
-    "project_id": "gh-notif",
-    "storage_bucket": "gh-notif.appspot.com"
+    "project_number": "383553165448",
+    "firebase_url": "https://gh-notif-d5754-default-rtdb.firebaseio.com",
+    "project_id": "gh-notif-d5754",
+    "storage_bucket": "gh-notif-d5754.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:150583166313:android:d9a976b1995dac9c77a9f8",
+        "mobilesdk_app_id": "1:383553165448:android:fd15310d2cbf1bc41ee73d",
         "android_client_info": {
           "package_name": "com.example.gh_notif"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDWtKlfLefWASmLAG7ZHuoknYGbcWgcFB4"
+          "current_key": "AIzaSyDmq03sCBZDrH9sSeuulAofdDaAS9EdxDc"
         }
       ],
       "services": {

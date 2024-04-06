@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:id="@+id/moisturecontent"
+                    android:id="@+id/temperaturecontent"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,7 +172,7 @@
 
                     <!-- NumberPicker for selecting hours -->
                     <NumberPicker
-                        android:id="@+id/number_picker_hours"
+                        android:id="@+id/hrs"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
 
@@ -193,8 +193,9 @@
 
                     <!-- NumberPicker for selecting minutes -->
                     <NumberPicker
+
                         android:background="@drawable/button_outline"
-                        android:id="@+id/number_picker_minutes"
+                        android:id="@+id/min"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:max="59"

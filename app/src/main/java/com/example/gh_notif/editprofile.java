@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,17 +17,89 @@ public class editprofile extends AppCompatActivity {
 
     TextInputEditText prfullname, prusername, premail, prpassword;
     Button saveprofile;
-    DatabaseReference databaseReference;
+    String nameUser, emailUser, usernameUser, passwordUser;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://gh-notif-d5754-default-rtdb.firebaseio.com/");
 
 
-    FirebaseAuth mAuth;
+    // FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editprofile);
-        mAuth = FirebaseAuth.getInstance();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+
+        prfullname = findViewById(R.id.editprofilefullname);
+        prusername = findViewById(R.id.editprofileusername);
+        premail = findViewById(R.id.editprofileemail);
+        prpassword = findViewById(R.id.editprofilepassword);
+        saveprofile = findViewById(R.id.editsave);
+
+        showData();
+
+        saveprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fullnamechanged() || emailchanged() || passwordchanged()) {
+                    Toast.makeText(editprofile.this, "Saved", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(editprofile.this, "No Changes Found", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+    }
+
+    private boolean emailchanged() {
+        if (!emailUser.equals(premail.getText().toString())) {
+            databaseReference.child(usernameUser).child("email").setValue(premail.getText().toString());
+            emailUser = premail.getText().toString();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean fullnamechanged() {
+        if (!nameUser.equals(prfullname.getText().toString())) {
+            databaseReference.child(usernameUser).child("fullname").setValue(prfullname.getText().toString());
+            nameUser = prfullname.getText().toString();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean passwordchanged() {
+        if (!passwordUser.equals(prpassword.getText().toString())) {
+            databaseReference.child(usernameUser).child("password").setValue(prpassword.getText().toString());
+            passwordUser = prpassword.getText().toString();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public void showData() {
+        Intent intent = getIntent();
+        nameUser = intent.getStringExtra("name");
+        emailUser = intent.getStringExtra("email");
+        usernameUser = intent.getStringExtra("username");
+        passwordUser = intent.getStringExtra("password");
+        prfullname.setText(nameUser);
+        premail.setText(emailUser);
+        prusername.setText(usernameUser);
+        prpassword.setText(passwordUser);
+    }
+}
+
+
+      /*  mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             startActivity(new Intent(editprofile.this, profilefrag.class));
@@ -83,7 +153,6 @@ public class editprofile extends AppCompatActivity {
 
     public class User {
         public User(String email, String password) {
-        }
-    }
+        }*/
 
-}
+

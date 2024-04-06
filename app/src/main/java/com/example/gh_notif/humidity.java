@@ -1,5 +1,6 @@
 package com.example.gh_notif;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,6 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,10 +27,10 @@ public class humidity extends AppCompatActivity {
 
 private Switch humidityswitch;
 private SeekBar humidityseekbar;
-private TextInputEditText humiditycontent;
+ TextInputEditText humiditycontenttxt;
 
     private TextView targethumidityTextView;
-
+    DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReferenceFromUrl("https://gh-notif-d5754-default-rtdb.firebaseio.com/");
     private TextView currenthumidityTextView;
 
     @Override
@@ -36,7 +42,7 @@ private TextInputEditText humiditycontent;
         humidityseekbar = findViewById(R.id.humidityseekbar);
         currenthumidityTextView= findViewById(R.id.current);
         targethumidityTextView = findViewById(R.id.target);
-        humiditycontent= findViewById(R.id.moisturecontent);
+        humiditycontenttxt= findViewById(R.id.moisturecontent);
 
 
         // Set initial state of SeekBar and TextView based on Switch state
@@ -54,6 +60,26 @@ private TextInputEditText humiditycontent;
                 if (isChecked) {
                     // Display a message indicating that no changes can be made when the switch is on
                     Toast.makeText(humidity.this, "Switch is ON. No changes can be made.", Toast.LENGTH_SHORT).show();
+                }
+
+                String humidity=humiditycontenttxt.getText().toString();
+
+                if (humidity.isEmpty()){
+                    Toast.makeText(humidity.this, "please enter required humidity content", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    databaseReference.child("readings").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            databaseReference.child("readings").child("greenhouse").child("humid").setValue(humidity);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
         });

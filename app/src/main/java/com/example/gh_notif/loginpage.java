@@ -29,11 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class loginpage extends AppCompatActivity {
 
-    TextInputEditText email, password;
+    TextInputEditText username, password;
     Button login, signup;
     FirebaseAuth authenticate;
 
-    DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReferenceFromUrl("https://gh-notif-d5754-default-rtdb.firebaseio.com/");
+    DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReferenceFromUrl("https://gh-notif-d5754-default-rtdb.firebaseio.com");
 
 
 
@@ -45,7 +45,7 @@ public class loginpage extends AppCompatActivity {
 
         login=findViewById(R.id.loginbutton);
         signup=findViewById(R.id.signupbutton);
-        email=findViewById(R.id.lemail);
+        username=findViewById(R.id.lusername);
         password=findViewById(R.id.lpassword);
 
 
@@ -53,25 +53,25 @@ public class loginpage extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String emailtxt= email.getText().toString();
+                final String usernametxt= username.getText().toString();
                 final String passwordtxt= password.getText().toString();
 
-                if(emailtxt.isEmpty() || passwordtxt.isEmpty())
+                if(usernametxt.isEmpty() || passwordtxt.isEmpty())
                 {
-                    Toast.makeText(loginpage.this, "please enter your email and pasword", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(loginpage.this, "please enter your email and password", Toast.LENGTH_SHORT).show();
                 }
                 else {
 
                     databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.hasChild(emailtxt)){
-                                final String getpassword = snapshot.child(emailtxt).child("password").getValue(String.class);
+                            if(snapshot.hasChild(usernametxt)){
+                                final String getpassword = snapshot.child(usernametxt).child("password").getValue(String.class);
 
                                 if(getpassword.equals(passwordtxt))
                                 {
                                     Toast.makeText(loginpage.this, "successfully logged in ", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(loginpage.this, dashboard.class));
+                                    startActivity(new Intent(loginpage.this, editprofile.class));
                                     finish();
 
                                 }else{

@@ -72,7 +72,7 @@ public class signup extends AppCompatActivity {
 
                 if(fullnametxt.isEmpty() || emailtxt.isEmpty() || usernametxt.isEmpty() || passwordtxt.isEmpty())
                 {
-                    Toast.makeText(signup.this, "please enter your email and pasword", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(signup.this, "please enter your email and password", Toast.LENGTH_SHORT).show();
                 }
                 else {
 
@@ -80,15 +80,15 @@ public class signup extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             //checking for email is registered or not
-                            if(snapshot.hasChild(emailtxt))
+                            if(snapshot.hasChild(usernametxt))
                             {
                                 Toast.makeText(signup.this,"email is already registered", Toast.LENGTH_SHORT).show();
 
                             }else {
                                 //sending data to firebase
-                                databaseReference.child("users").child(emailtxt).child("fullname").setValue(fullnametxt);
-                                databaseReference.child("users").child(emailtxt).child("username").setValue(usernametxt);
-                                databaseReference.child("users").child(emailtxt).child("password").setValue(passwordtxt);
+                                databaseReference.child("users").child(usernametxt).child("fullname").setValue(fullnametxt);
+                                databaseReference.child("users").child(usernametxt).child("email").setValue(usernametxt);
+                                databaseReference.child("users").child(usernametxt).child("password").setValue(passwordtxt);
 
                                 Toast.makeText(signup.this,"user registered successfully", Toast.LENGTH_SHORT);
                                 finish();
